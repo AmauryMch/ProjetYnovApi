@@ -1,0 +1,8 @@
+/node_modules
+*.log
+package-lock.json
+
+# const ENV = {
+#     PORT: 9999999,
+#     DB: 'XXXXXXXXXXXXXXXXXXX',
+# }
