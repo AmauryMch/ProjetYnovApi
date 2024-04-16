@@ -1,13 +1,28 @@
 const Facture = require('../models/facture');
+const logger = require('../logger');
 
 // Create
 exports.createFacture = async (req, res) => {
   try {
-    const facture = new Facture(req.body);
-    await facture.save();
-    res.status(201).json(facture);
+    const facture = new Facture({
+      client: req.body.client,
+      dateEmission: req.body.dateEmission,
+      estPayee: req.body.estPayee,
+      datePaiement: req.body.datePaiement,
+      prix: req.body.prix,
+      produits: req.body.produits,
+      creationDate: new Date(),
+      modificationDate: new Date(),
+      creationUser: 'admin',
+      modificationUser: 'admin',
+      active: true,
+    });
+    const savedFacture = await facture.save();
+    logger.info({ message: "Création d'une facture bien réalisée", facture: savedFacture });
+    res.status(201).json(savedFacture);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    logger.error({ message: "Erreur à la création d'une facture", error: error.message });
+    res.status(400).json({ message: "Erreur à la création d'une facture", error: error.message });
   }
 };
 
@@ -15,9 +30,11 @@ exports.createFacture = async (req, res) => {
 exports.getFactures = async (req, res) => {
   try {
     const factures = await Facture.find();
+    logger.info({ message: "Récupération de toutes les factures", factures: factures });
     res.json(factures);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    logger.error({ message: "Erreur lors de la récupération des factures", error: error.message });
+    res.status(500).json({ message: "Erreur lors de la récupération des factures", error: error.message });
   }
 };
 
@@ -26,11 +43,14 @@ exports.getFactureById = async (req, res) => {
   try {
     const facture = await Facture.findById(req.params.id);
     if (!facture) {
-      return res.status(404).json({ message: 'Facture not found' });
+      logger.error({ message: 'Facture non trouvée' });
+      return res.status(404).json({ message: 'Facture non trouvée' });
     }
+    logger.info({ message: "Récupération d'une facture par ID", facture: facture });
     res.json(facture);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    logger.error({ message: "Erreur lors de la récupération de la facture", error: error.message });
+    res.status(500).json({ message: "Erreur lors de la récupération de la facture", error: error.message });
   }
 };
 
@@ -39,11 +59,14 @@ exports.updateFacture = async (req, res) => {
   try {
     const facture = await Facture.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!facture) {
-      return res.status(404).json({ message: 'Facture not found' });
+      logger.error({ message: 'Facture non trouvée' });
+      return res.status(404).json({ message: 'Facture non trouvée' });
     }
+    logger.info({ message: "Mise à jour d'une facture", facture: facture });
     res.json(facture);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    logger.error({ message: "Erreur lors de la mise à jour de la facture", error: error.message });
+    res.status(400).json({ message: "Erreur lors de la mise à jour de la facture", error: error.message });
   }
 };
 
@@ -52,10 +75,13 @@ exports.deleteFacture = async (req, res) => {
   try {
     const facture = await Facture.findByIdAndDelete(req.params.id);
     if (!facture) {
-      return res.status(404).json({ message: 'Facture not found' });
+      logger.error({ message: 'Facture non trouvée' });
+      return res.status(404).json({ message: 'Facture non trouvée' });
     }
-    res.json({ message: 'Facture deleted successfully' });
+    logger.info({ message: "Suppression d'une facture", factureId: facture._id });
+    res.json({ message: 'Facture supprimée avec succès' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    logger.error({ message: "Erreur lors de la suppression de la facture", error: error.message });
+    res.status(500).json({ message: "Erreur lors de la suppression de la facture", error: error.message });
   }
 };

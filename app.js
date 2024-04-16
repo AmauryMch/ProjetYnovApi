@@ -29,8 +29,12 @@ app.use(bodyParser.json());
 // ROUTES
 const apiRoutes = require('./routes/api');
 const clientRoutes = require('./routes/client')
+const produitRoutes = require('./routes/produit')
+const factureRoutes = require('./routes/facture')
 
 app.use('/api/', apiRoutes);
 app.use('/client/', clientRoutes);
+app.use('/produit/', produitRoutes);
+app.use('/facture/', factureRoutes);
 
 module.exports = app;

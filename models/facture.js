@@ -6,7 +6,12 @@ const factureSchema = new mongoose.Schema({
   estPayee: { type: Boolean, default: false },
   datePaiement: { type: Date },
   prix: { type: Number, required: true },
-  produits: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Produit' }]
+  produits: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Produit' }],
+  creationDate: {type:Date, required: true},
+  modificationDate: {type:Date, required: true},
+  creationUser: {type:String, required: true},
+  modificationUser: {type:String, required: true},
+  active: {type:Boolean, required: true},
 });
 
 const Facture = mongoose.model('Facture', factureSchema);
