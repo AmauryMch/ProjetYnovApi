@@ -5,6 +5,6 @@ const logger = require('../middlewares/logger');
 
 router.use(logger);
 
-router.get('/response', apiController.getApiResponse);
+router.get('/modeldata', apiController.getModelData);
 
 module.exports = router;
