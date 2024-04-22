@@ -1,4 +1,4 @@
-const Client = require('../models/client');
+const Client = require('../models/models');
 const logger = require('../logger');
 
 // Create

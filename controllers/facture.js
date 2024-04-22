@@ -1,4 +1,4 @@
-const Facture = require('../models/facture');
+const Facture = require('../models/models');
 const logger = require('../logger');
 
 // Create
