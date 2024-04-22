@@ -1,4 +1,4 @@
-const Produit = require('../models/models');
+const Produit = require('../models/produit');
 const logger = require('../logger');
 
 // Create
