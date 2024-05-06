@@ -12,3 +12,30 @@ exports.getModelData = (req, res) => {
 
     res.status(200).json(modelData);
 };
+
+exports.getModelClient = (req, res) => {
+
+    const modelClient = {
+        clientSchema: Client.schema.obj
+    };
+
+    res.status(200).json(modelClient);
+};
+
+exports.getModelFacture = (req, res) => {
+
+    const modelFacture = {
+        factureSchema: Facture.schema.obj,
+    };
+
+    res.status(200).json(modelFacture);
+};
+
+exports.getModelProduit = (req, res) => {
+
+    const modelProduit = {
+        produitSchema: Produit.schema.obj
+    };
+
+    res.status(200).json(modelProduit);
+};
