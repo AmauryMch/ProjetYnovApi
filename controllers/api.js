@@ -10,6 +10,7 @@ exports.getModelData = (req, res) => {
         produitSchema: Produit.schema.obj
     };
 
+    console.log("Modèle de données complet")
     res.status(200).json(modelData);
 };
 
@@ -19,6 +20,7 @@ exports.getModelClient = (req, res) => {
         clientSchema: Client.schema.obj
     };
 
+    console.log("Modèle Client")
     res.status(200).json(modelClient);
 };
 
@@ -28,6 +30,7 @@ exports.getModelFacture = (req, res) => {
         factureSchema: Facture.schema.obj,
     };
 
+    console.log("Modèle Facture")
     res.status(200).json(modelFacture);
 };
 
@@ -37,5 +40,6 @@ exports.getModelProduit = (req, res) => {
         produitSchema: Produit.schema.obj
     };
 
+    console.log("Modèle Produit")
     res.status(200).json(modelProduit);
 };
